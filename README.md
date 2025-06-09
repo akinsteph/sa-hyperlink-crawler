@@ -1,9 +1,9 @@
 # Sa Hyperlink Crawler
 
-# Usage
+## Usage
 This WordPress plugin records which hyperlinks are visible above the fold when visitors load site homepage.
 
-# Get started
+## Get started
 - Have a mysql DB ready and a user.
 - Have `svn` installed.
 - Run `composer install`
@@ -12,7 +12,7 @@ This WordPress plugin records which hyperlinks are visible above the fold when v
 - Run `composer phpcs`
 - Activate the plugin on your site to begin tracking homepage visits
 
-# Content
+## Content
 * `bin/install-wp-tests.sh`: installer for WordPress tests suite
 * `.editorconfig`: config file for your IDE to follow our coding standards
 * `.gitattributes`: list of directories & files excluded from export
@@ -22,3 +22,6 @@ This WordPress plugin records which hyperlinks are visible above the fold when v
 * `LICENSE`: License file using GPLv3
 * `phpcs.xml`: Base PHP Code Sniffer configuration file to customize for the project
 * `README.md`: The readme displayed on Github, to customize for the project
+
+## Development Notes
+This repository contains a wordpress plugin for tracking . Each class in `src/Tracking` includes TODO comments outlining the future implementation steps. See `Explanation.md` for a high-level design overview.
