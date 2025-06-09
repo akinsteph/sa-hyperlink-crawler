@@ -10,7 +10,7 @@
 
 namespace SA_HYPERLINK_CRAWLER;
 
-require_once dirname(dirname(__DIR__)) . "/plugin.php";
+require_once dirname(dirname(__DIR__)) . "/sa-hyperlink-crawler.php";
 
 use WPMedia\PHPUnit\Integration\TestCase;
 use Brain\Monkey\Functions;

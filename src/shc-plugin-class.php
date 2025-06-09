@@ -13,7 +13,7 @@ namespace SA_HYPERLINK_CRAWLER;
 /**
  * Main plugin class. It manages initialization, install, and activations.
  */
-class SA_Hyperlink_Crawler_Plugin {
+class SHC_Plugin_Class {
 	/**
 	 * Manages plugin initialization
 	 *

@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) { // If WordPress is not loaded.
 }
 
 // Load the dependencies installed through composer.
-require_once __DIR__ . '/src/sa-hyperlink-crawler.php';
+require_once __DIR__ . '/src/shc-plugin-class.php';
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/src/support/exceptions.php';
 
@@ -34,9 +34,9 @@ require_once __DIR__ . '/src/support/exceptions.php';
  * @return void
  */
 function sa_hyperlink_crawler_plugin_init() {
-	$sa_hyperlink_crawler_plugin = new SA_Hyperlink_Crawler_Plugin();
+	$shc_plugin = new SHC_Plugin_Class();
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\sa_hyperlink_crawler_plugin_init' );
 
-register_activation_hook( __FILE__, __NAMESPACE__ . '\SA_Hyperlink_Crawler_Plugin::sa_hyperlink_crawler_activate' );
-register_uninstall_hook( __FILE__, __NAMESPACE__ . '\SA_Hyperlink_Crawler_Plugin::sa_hyperlink_crawler_uninstall' );
+\register_activation_hook( __FILE__, __NAMESPACE__ . '\SHC_Plugin_Class::sa_hyperlink_crawler_activate' );
+\register_uninstall_hook( __FILE__, __NAMESPACE__ . '\SHC_Plugin_Class::sa_hyperlink_crawler_uninstall' );
