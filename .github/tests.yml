@@ -1,9 +1,13 @@
 name: Unit/Integration tests PHP
 
 on:
+  push:
+    branches:
+      - main
+      - develop
   pull_request:
     branches:
-      - master
+      - main
       - develop
 jobs:
   run:
