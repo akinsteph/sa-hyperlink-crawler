@@ -1,14 +1,14 @@
 {
-    "name"          : "wp-media/package-template",
-    "description"   : "WP Plugin template for WP Media.",
+    "name"          : "sa/hyperlink-crawler",
+    "description"   : "Tracks hyperlinks visible above the fold on the homepage.",
     "type"          : "project",
     "keywords"      : ["wordpress", "wp", "plugin"],
-    "homepage"      : "https://github.com/wp-media/package-template",
+    "homepage"      : "https://github.com/akinsteph/sa-wp-assessment",
     "license"       : "GPL-2.0+",
     "authors"       : [
         {
-            "name": "Mathieu Lamiot",
-            "email": "mathieu@wp-media.me"
+            "name": "Stephen Akinola",
+            "email": "stephen@akinsteph.com"
         }
     ],
     "require"       : {
@@ -25,7 +25,11 @@
 		"wp-coding-standards/wpcs": "dev-develop",
 		"wp-media/phpunit": "^3"
     },
-    "autoload": {},
+    "autoload": {
+        "psr-4": {
+            "SA_HYPERLINK_CRAWLER\\": "src/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"

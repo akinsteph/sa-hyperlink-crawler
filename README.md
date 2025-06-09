@@ -1,16 +1,16 @@
-Repository template for our packages
+Sa Hyperlink Crawler
 
 # Usage
-When creating a new repository for a package or a plugin, select this repository as the template. It will initialize the new repository with all the structure & files contained in the template.
+This WordPress plugin records which hyperlinks are visible above the fold when visitors load site homepage.
 
 # Get started
 - Have a mysql DB ready and a user.
 - Have `svn` installed.
 - Run `composer install`
 - Run `bash bin/install-wp-tests.sh wordpress_test mysql_user mysql_password localhost latest`
-- Run `composer run-tests`
+- Run `composer run-tests` to run the unit and integration tests
 - Run `composer phpcs`
-- You can install the plugin on your website.
+- Activate the plugin on your site to begin tracking homepage visits
 
 # Content
 * `bin/install-wp-tests.sh`: installer for WordPress tests suite

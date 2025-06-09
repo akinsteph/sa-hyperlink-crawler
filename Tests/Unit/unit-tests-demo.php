@@ -7,7 +7,7 @@
  * @author      Mathieu Lamiot
  * @license     GPL-2.0-or-later
  */
-namespace ROCKET_WP_CRAWLER;
+namespace SA_HYPERLINK_CRAWLER;
 
 use WPMedia\PHPUnit\Unit\TestCase;
 
@@ -15,7 +15,7 @@ use WPMedia\PHPUnit\Unit\TestCase;
 /**
  * Unit test set for the Webplan data class.
  */
-class Rocket_Wpc_Demo_Test extends TestCase {
+class SA_Hyperlink_Crawler_Demo_Test extends TestCase {
 
     /**
      * Always pass.

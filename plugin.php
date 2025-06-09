@@ -2,28 +2,28 @@
 /**
  * Plugin Template
  *
- * @package     TO FILL
- * @author      Mathieu Lamiot
- * @copyright   TO FILL
+ * @package     SA Hyperlink Crawler
+ * @author      Stephen Akinola
+ * @copyright   Stephen Akinola
  * @license     GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name: TO FILL
- * Version:     TO FILL
- * Description: TO FILL
- * Author:      Mathieu Lamiot
+ * Plugin Name: SA Hyperlink Crawler
+ * Version:     1.0.0
+ * Description: Tracks hyperlinks visible above the fold on the homepage.
+ * Author:      Stephen Akinola
  */
 
-namespace ROCKET_WP_CRAWLER;
+namespace SA_HYPERLINK_CRAWLER;
 
-define( 'ROCKET_CRWL_PLUGIN_FILENAME', __FILE__ ); // Filename of the plugin, including the file.
+define( 'SA_HYPERLINK_CRAWLER_PLUGIN_FILENAME', __FILE__ ); // Filename of the plugin, including the file.
 
 if ( ! defined( 'ABSPATH' ) ) { // If WordPress is not loaded.
 	exit( 'WordPress not loaded. Can not load the plugin' );
 }
 
 // Load the dependencies installed through composer.
-require_once __DIR__ . '/src/plugin.php';
+require_once __DIR__ . '/src/sa-hyperlink-crawler.php';
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/src/support/exceptions.php';
 
@@ -33,10 +33,10 @@ require_once __DIR__ . '/src/support/exceptions.php';
  *
  * @return void
  */
-function wpc_crawler_plugin_init() {
-	$wpc_crawler_plugin = new Rocket_Wpc_Plugin_Class();
+function sa_hyperlink_crawler_plugin_init() {
+	$sa_hyperlink_crawler_plugin = new SA_Hyperlink_Crawler_Plugin();
 }
-add_action( 'plugins_loaded', __NAMESPACE__ . '\wpc_crawler_plugin_init' );
+add_action( 'plugins_loaded', __NAMESPACE__ . '\sa_hyperlink_crawler_plugin_init' );
 
-register_activation_hook( __FILE__, __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_activate' );
-register_uninstall_hook( __FILE__, __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_uninstall' );
+register_activation_hook( __FILE__, __NAMESPACE__ . '\SA_Hyperlink_Crawler_Plugin::sa_hyperlink_crawler_activate' );
+register_uninstall_hook( __FILE__, __NAMESPACE__ . '\SA_Hyperlink_Crawler_Plugin::sa_hyperlink_crawler_uninstall' );

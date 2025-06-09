@@ -2,13 +2,13 @@
 /**
  *  Implements the Integration test set for the plugin management.
  *
- * @package     TO FILL
- * @since       TO FILL
- * @author      Mathieu Lamiot
+ * @package     SA Hyperlink Crawler
+ * @since       1.0.0
+ * @author      Stephen Akinola
  * @license     GPL-2.0-or-later
  */
 
-namespace ROCKET_WP_CRAWLER;
+namespace SA_HYPERLINK_CRAWLER;
 
 require_once dirname(dirname(__DIR__)) . "/plugin.php";
 
@@ -18,13 +18,13 @@ use Brain\Monkey\Functions;
 /**
  * Integration test set for the Webplan Updater Cron Class.
  */
-class Rocket_Wpc_Plugin_Integration_Test extends TestCase {
+class SA_Hyperlink_Crawler_Plugin_Integration_Test extends TestCase {
 
 	/**
      * Checks the call to plugin init function on plugin_loaded.
      */
     public function testShouldLoadPlugin() {
-		  Functions\expect(__NAMESPACE__ . '\wpc_crawler_plugin_init')->once();
+		  Functions\expect(__NAMESPACE__ . '\sa_hyperlink_crawler_plugin_init')->once();
 		  do_action('plugins_loaded');
     }
 }

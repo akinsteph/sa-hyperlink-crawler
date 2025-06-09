@@ -2,18 +2,18 @@
 /**
  * Plugin main class
  *
- * @package     TO FILL
- * @since       TO FILL
- * @author      Mathieu Lamiot
+ * @package     SA Hyperlink Crawler
+ * @since       1.0.0
+ * @author      Stephen Akinola
  * @license     GPL-2.0-or-later
  */
 
-namespace ROCKET_WP_CRAWLER;
+namespace SA_HYPERLINK_CRAWLER;
 
 /**
  * Main plugin class. It manages initialization, install, and activations.
  */
-class Rocket_Wpc_Plugin_Class {
+class SA_Hyperlink_Crawler_Plugin {
 	/**
 	 * Manages plugin initialization
 	 *
@@ -22,7 +22,7 @@ class Rocket_Wpc_Plugin_Class {
 	public function __construct() {
 
 		// Register plugin lifecycle hooks.
-		register_deactivation_hook( ROCKET_CRWL_PLUGIN_FILENAME, array( $this, 'wpc_deactivate' ) );
+		register_deactivation_hook( SA_HYPERLINK_CRAWLER_PLUGIN_FILENAME, array( $this, 'sa_hyperlink_crawler_deactivate' ) );
 	}
 
 	/**
@@ -30,7 +30,7 @@ class Rocket_Wpc_Plugin_Class {
 	 *
 	 * @return void
 	 */
-	public static function wpc_activate() {
+	public static function sa_hyperlink_crawler_activate() {
 		// Security checks.
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
@@ -44,7 +44,7 @@ class Rocket_Wpc_Plugin_Class {
 	 *
 	 * @return void
 	 */
-	public function wpc_deactivate() {
+	public function sa_hyperlink_crawler_deactivate() {
 		// Security checks.
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
@@ -58,7 +58,7 @@ class Rocket_Wpc_Plugin_Class {
 	 *
 	 * @return void
 	 */
-	public static function wpc_uninstall() {
+	public static function sa_hyperlink_crawler_uninstall() {
 
 		// Security checks.
 		if ( ! current_user_can( 'activate_plugins' ) ) {
