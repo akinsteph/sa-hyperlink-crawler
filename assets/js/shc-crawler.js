@@ -89,4 +89,12 @@
     //         sendData(endpoint, { links: collectLinks() });
     //     }, 250);
     // });
+
+	// Expose internals for testing when running under a test environment.
+	if (typeof window !== 'undefined') {
+		window.shcCrawlerTest = {
+			collectLinks,
+			sendData,
+		};
+	}
 })();

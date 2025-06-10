@@ -24,3 +24,20 @@ if (
 if ( is_readable( WPMEDIA_PHPUNIT_ROOT_TEST_DIR . '/bootstrap.php' ) ) {
 	require_once WPMEDIA_PHPUNIT_ROOT_TEST_DIR . '/bootstrap.php';
 }
+
+// Load plugin classes
+require_once dirname(dirname(__DIR__)) . '/src/tracking/shc-crawler.php';
+require_once dirname(dirname(__DIR__)) . '/src/tracking/shc-database.php';
+require_once dirname(dirname(__DIR__)) . '/src/tracking/shc-restendpoint.php';
+require_once dirname(dirname(__DIR__)) . '/src/tracking/shc-adminpage.php';
+require_once dirname(dirname(__DIR__)) . '/src/tracking/shc-cron.php';
+require_once dirname(dirname(__DIR__)) . '/src/shc-plugin-class.php';
+
+// Define plugin constants if not already defined
+if ( ! defined( 'SA_HYPERLINK_CRAWLER_PLUGIN_FILENAME' ) ) {
+    define( 'SA_HYPERLINK_CRAWLER_PLUGIN_FILENAME', dirname(dirname(__DIR__)) . '/sa-hyperlink-crawler.php' );
+}
+
+if ( ! defined( 'SA_HYPERLINK_CRAWLER_VERSION' ) ) {
+    define( 'SA_HYPERLINK_CRAWLER_VERSION', '1.0.0' );
+}
