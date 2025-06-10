@@ -24,4 +24,4 @@ This WordPress plugin records which hyperlinks are visible above the fold when v
 * `README.md`: The readme displayed on Github, to customize for the project
 
 ## Development Notes
-This repository contains a WordPress plugin for tracking hyperlinks on the homepage. Each feature branch holds a part of the implementation. See `Explanation.md` for a high-level design overview.
+This repository contains a wordpress plugin for tracking hyperlinks on homepage for site owners. Each implementation includes TODO comments outlining the future implementation steps. See `Explanation.md` for a high-level design overview.
