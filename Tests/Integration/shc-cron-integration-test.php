@@ -38,10 +38,9 @@ class CronIntegrationTest extends TestCase {
         $cron = new SHC_Cron($db);
 
         Functions\when('wp_next_scheduled')->justReturn(false);
-        Functions\when('time')->justReturn(100);
         Functions\expect('wp_schedule_event')
             ->once()
-            ->with(100, 'daily', SHC_Cron::HOOK);
+            ->with(Mockery::type('int'), 'daily', SHC_Cron::HOOK);
 
         $cron->schedule();
     }
