@@ -1,0 +1,33 @@
+.shc-admin-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+.shc-admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.shc-admin-table th {
+    background: #f5f5f5;
+    text-align: left;
+    padding: 10px;
+}
+.shc-admin-table td {
+    padding: 8px 10px;
+    border-top: 1px solid #ddd;
+}
+.shc-pagination {
+    margin-top: 15px;
+}
+.shc-pagination a {
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.shc-page-title {
+    margin-bottom: 20px;
+}

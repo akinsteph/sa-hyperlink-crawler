@@ -22,6 +22,13 @@ class SHC_Database {
 	const TABLE = 'shc_visits';
 
 	/**
+	* Number of visits displayed per page.
+	*
+	* @var int
+	*/
+	const PER_PAGE = 20;
+
+	/**
 	 * Return the full table name including WordPress prefix.
 	 *
 	 * @return string
@@ -95,12 +102,13 @@ class SHC_Database {
 	 * Retrieve visit records.
 	 *
 	 * @param int $paged Page number for pagination.
+	 * @param int $per_page Number of visits per page.
 	 * @return array
 	 */
-	public function get_visits( $paged = 1 ) {
+	public function get_visits( $paged = 1, $per_page = self::PER_PAGE ) {
 		global $wpdb;
 
-		$per_page = 20;
+		$per_page = $per_page > 0 ? intval( $per_page ) : self::PER_PAGE;
 		$paged    = max( 1, intval( $paged ) );
 		$offset   = ( $paged - 1 ) * $per_page;
 		$table    = $this->get_table();
@@ -142,5 +150,19 @@ class SHC_Database {
 			$threshold
 		);
 		$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- query is prepared above and table name is static
+	}
+
+	/**
+	 * Count total visits stored.
+	 *
+	 * @return int
+	 */
+	public function count_visits() {
+		global $wpdb;
+
+		$table = $this->get_table();
+		$sql   = "SELECT COUNT(*) FROM {$table}";
+
+		return (int) $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- table name is static
 	}
 }

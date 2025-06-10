@@ -1,9 +1,13 @@
+const fs = require('fs');
 const path = require('path');
 
-// Load the script after the DOM has been set up in each test.
+// Helper to load script synchronously
 function loadScript() {
-  jest.resetModules();
-  require(path.resolve(__dirname, '../../assets/js/shc-crawler.js'));
+  const scriptPath = path.resolve(__dirname, '../../assets/js/shc-crawler.js');
+  const scriptContent = fs.readFileSync(scriptPath, 'utf8');
+  const script = document.createElement('script');
+  script.textContent = scriptContent;
+  document.body.appendChild(script);
 }
 
 describe('shc-crawler script', () => {
@@ -14,6 +18,13 @@ describe('shc-crawler script', () => {
     window.innerHeight = 800;
     window.innerWidth = 600;
     global.jQuery = { ajax: jest.fn() };
+  });
+
+  afterEach(() => {
+    // Clean up
+    document.body.innerHTML = '';
+    delete window.shcData;
+    delete window.shcCrawlerTest;
   });
 
   test('collectLinks returns only visible links', () => {
