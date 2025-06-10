@@ -83,7 +83,7 @@ class SHC_Plugin_Class {
 		$this->script->register();
 		$this->endpoint->register();
 
-		// TODO: register REST endpoint, admin page and cron hooks.
+		// TODO: register admin page and cron hooks.
 	}
 
 	/**
