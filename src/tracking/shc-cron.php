@@ -15,20 +15,20 @@ namespace SA_HYPERLINK_CRAWLER\Tracking;
  */
 class SHC_Cron {
 	/**
-     * Register WordPress cron events.
-     *
-     * @return void
-     */
-    public function register() {
-        // TODO: schedule daily cleanup event.
-    }
+	 * Register WordPress cron events.
+	 *
+	 * @return void
+	 */
+	public function register() {
+		// TODO: schedule daily cleanup event.
+	}
 
-    /**
-     * Callback to purge old visit data.
-     *
-     * @return void
-     */
-    public function cleanup() {
-        // TODO: delete visits older than seven days via Database class.
-    }
+	/**
+	 * Callback to purge old visit data.
+	 *
+	 * @return void
+	 */
+	public function cleanup() {
+		// TODO: delete visits older than seven days via Database class.
+	}
 }

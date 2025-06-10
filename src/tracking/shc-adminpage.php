@@ -14,21 +14,21 @@ namespace SA_HYPERLINK_CRAWLER\Tracking;
  * Provide an admin page displaying visit data.
  */
 class SHC_AdminPage {
-    /**
-     * Add hooks for admin menu and screen rendering.
-     *
-     * @return void
-     */
-    public function register() {
-        // TODO: hook into admin_menu and display page.
-    }
+	/**
+	 * Add hooks for admin menu and screen rendering.
+	 *
+	 * @return void
+	 */
+	public function register() {
+		// TODO: hook into admin_menu and display page.
+	}
 
-    /**
-     * Render the admin page contents.
-     *
-     * @return void
-     */
-    public function render() {
-        // TODO: output table of visits with pagination.
-    }
+	/**
+	 * Render the admin page contents.
+	 *
+	 * @return void
+	 */
+	public function render() {
+		// TODO: output table of visits with pagination.
+	}
 }

@@ -21,39 +21,39 @@ use SA_HYPERLINK_CRAWLER\Tracking\SHC_Cron;
  */
 class SHC_Plugin_Class {
 	/**
-     * Database handler instance.
-     *
-     * @var SHC_Database
-     */
-    protected $db;
+	 * Database handler instance.
+	 *
+	 * @var SHC_Database
+	 */
+	protected $db;
 
-    /**
-     * Script handler instance.
-     *
-     * @var SHC_Crawler
-     */
-    protected $script;
+	/**
+	 * Script handler instance.
+	 *
+	 * @var SHC_Crawler
+	 */
+	protected $script;
 
-    /**
-     * REST endpoint handler instance.
-     *
-     * @var SHC_RestEndpoint
-     */
-    protected $endpoint;
+	/**
+	 * REST endpoint handler instance.
+	 *
+	 * @var SHC_RestEndpoint
+	 */
+	protected $endpoint;
 
-    /**
-     * Admin page handler instance.
-     *
-     * @var SHC_AdminPage
-     */
-    protected $admin_page;
+	/**
+	 * Admin page handler instance.
+	 *
+	 * @var SHC_AdminPage
+	 */
+	protected $admin_page;
 
-    /**
-     * Cron handler instance.
-     *
-     * @var SHC_Cron
-     */
-    protected $cron;
+	/**
+	 * Cron handler instance.
+	 *
+	 * @var SHC_Cron
+	 */
+	protected $cron;
 
 	/**
 	 * Manages plugin initialization
@@ -62,10 +62,10 @@ class SHC_Plugin_Class {
 	 */
 	public function __construct() {
 		$this->db         = new SHC_Database();
-        $this->script     = new SHC_Crawler();
-        $this->endpoint   = new SHC_RestEndpoint();
-        $this->admin_page = new SHC_AdminPage();
-        $this->cron       = new SHC_Cron();
+		$this->script     = new SHC_Crawler();
+		$this->endpoint   = new SHC_RestEndpoint();
+		$this->admin_page = new SHC_AdminPage();
+		$this->cron       = new SHC_Cron();
 
 		// Register hooks.
 		$this->register_hooks();
@@ -75,13 +75,13 @@ class SHC_Plugin_Class {
 	}
 
 	/**
-     * Register hooks with WordPress.
-     *
-     * @return void
-     */
-    protected function register_hooks() {
-        // TODO: register script, REST endpoint, admin page and cron hooks.
-    }
+	 * Register hooks with WordPress.
+	 *
+	 * @return void
+	 */
+	protected function register_hooks() {
+		// TODO: register script, REST endpoint, admin page and cron hooks.
+	}
 
 	/**
 	 * Handles plugin activation:
