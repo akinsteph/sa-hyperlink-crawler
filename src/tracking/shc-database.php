@@ -22,10 +22,10 @@ class SHC_Database {
 	const TABLE = 'shc_visits';
 
 	/**
-	* Return the full table name including WordPress prefix.
-	*
-	* @return string
-	*/
+	 * Return the full table name including WordPress prefix.
+	 *
+	 * @return string
+	 */
 	public function get_table() {
 		global $wpdb;
 
@@ -43,7 +43,7 @@ class SHC_Database {
 		$table_name      = $this->get_table();
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql = "CREATE TABLE {$table_name} (
+		$sql = "CREATE TABLE IF NOT EXISTS {$table_name} (
 				id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 				visit_time DATETIME NOT NULL,
 				screen_width INT(11) NOT NULL,
@@ -66,7 +66,8 @@ class SHC_Database {
 		global $wpdb;
 
 		$table_name = $this->get_table();
-		$wpdb->query( "DROP TABLE IF EXISTS {$table_name}" );
+		$sql        = $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $table_name );
+		$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- query is prepared above and table name is static
 	}
 
 	/**
@@ -79,14 +80,14 @@ class SHC_Database {
 		global $wpdb;
 
 		$wpdb->insert(
-				$this->get_table(),
-				array(
-						'visit_time'    => $data['time'],
-						'screen_width'  => $data['width'],
-						'screen_height' => $data['height'],
-						'links'         => wp_json_encode( $data['links'] ),
-				),
-				array( '%s', '%d', '%d', '%s' )
+			$this->get_table(),
+			array(
+				'visit_time'    => $data['time'],
+				'screen_width'  => $data['width'],
+				'screen_height' => $data['height'],
+				'links'         => wp_json_encode( $data['links'] ),
+			),
+			array( '%s', '%d', '%d', '%s' )
 		);
 	}
 
@@ -102,19 +103,24 @@ class SHC_Database {
 		$per_page = 20;
 		$paged    = max( 1, intval( $paged ) );
 		$offset   = ( $paged - 1 ) * $per_page;
+		$table    = $this->get_table();
 
 		$sql = $wpdb->prepare(
-				"SELECT id, visit_time, screen_width, screen_height, links
-				 FROM {$this->get_table()} ORDER BY visit_time DESC
-				 LIMIT %d OFFSET %d",
-				$per_page,
-				$offset
+			'SELECT id, visit_time, screen_width, screen_height, links
+			FROM %i
+			ORDER BY visit_time DESC
+			LIMIT %d OFFSET %d',
+			$table,
+			$per_page,
+			$offset
 		);
 
-		$results = $wpdb->get_results( $sql, ARRAY_A );
+		$results = $wpdb->get_results( $sql, ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- query is prepared above and table name is static
 
-		foreach ( $results as &$row ) {
+		if ( ! empty( $results ) ) {
+			foreach ( $results as &$row ) {
 				$row['links'] = json_decode( $row['links'], true );
+			}
 		}
 
 		return $results;
@@ -129,10 +135,12 @@ class SHC_Database {
 		global $wpdb;
 
 		$threshold = gmdate( 'Y-m-d H:i:s', strtotime( '-7 days' ) );
+		$table     = $this->get_table();
 		$sql       = $wpdb->prepare(
-				"DELETE FROM {$this->get_table()} WHERE visit_time < %s",
-				$threshold
+			'DELETE FROM %i WHERE visit_time < %s',
+			$table,
+			$threshold
 		);
-		$wpdb->query( $sql );
+		$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- query is prepared above and table name is static
 	}
 }
