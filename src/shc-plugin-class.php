@@ -64,7 +64,7 @@ class SHC_Plugin_Class {
 		$this->db         = new SHC_Database();
 		$this->script     = new SHC_Crawler();
 		$this->endpoint   = new SHC_RestEndpoint( $this->db );
-		$this->admin_page = new SHC_AdminPage();
+		$this->admin_page = new SHC_AdminPage( $this->db );
 		$this->cron       = new SHC_Cron();
 
 		// Register hooks.
@@ -82,8 +82,9 @@ class SHC_Plugin_Class {
 	protected function register_hooks() {
 		$this->script->register();
 		$this->endpoint->register();
+		$this->admin_page->register();
 
-		// TODO: register admin page and cron hooks.
+		// TODO: register cron hooks.
 	}
 
 	/**
@@ -99,7 +100,9 @@ class SHC_Plugin_Class {
 		$plugin = isset( $_REQUEST['plugin'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['plugin'] ) ) : '';
 		check_admin_referer( "activate-plugin_{$plugin}" );
 
-		// TODO: create database table and schedule cron event.
+		$db = new SHC_Database();
+		$db->activate();
+		// TODO: schedule cron event.
 	}
 
 	/**
@@ -129,5 +132,8 @@ class SHC_Plugin_Class {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
+
+		$db = new SHC_Database();
+		$db->uninstall();
 	}
 }

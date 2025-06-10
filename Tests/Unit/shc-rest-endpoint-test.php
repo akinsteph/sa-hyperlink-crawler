@@ -48,35 +48,41 @@ class SHC_RestEndpoint_Test extends TestCase {
     }
 
     public function testPermissionsCheckRejectsInvalidNonce() {
-        $db = Mockery::mock(SHC_Database::class);
-        $endpoint = new SHC_RestEndpoint( $db );
-
-        $request = Mockery::mock('WP_REST_Request');
-        $request->shouldReceive('get_header')->with('X-WP-Nonce')->once()->andReturn('bad');
+        $request = \Mockery::mock( 'WP_REST_Request' );
+        $request->shouldReceive( 'get_param' )
+            ->with( 'nonce' )
+            ->andReturn( 'invalid-nonce' );
 
         Functions\expect( 'wp_verify_nonce' )
             ->once()
-            ->with( 'bad', 'shc_rest' )
+            ->with( 'invalid-nonce', 'shc-rest' )
             ->andReturn( false );
 
+        $db = \Mockery::mock( 'SA_HYPERLINK_CRAWLER\Tracking\SHC_Database' );
+        $endpoint = new SHC_RestEndpoint( $db );
+
         $result = $endpoint->permissions_check( $request );
+
         $this->assertInstanceOf( \WP_Error::class, $result );
         $this->assertEquals( 'rest_forbidden', $result->code );
     }
 
     public function testPermissionsCheckAcceptsValidNonce() {
-        $db = Mockery::mock(SHC_Database::class);
-        $endpoint = new SHC_RestEndpoint( $db );
-
-        $request = Mockery::mock('WP_REST_Request');
-        $request->shouldReceive('get_header')->with('X-WP-Nonce')->once()->andReturn('good');
+        $request = \Mockery::mock( 'WP_REST_Request' );
+        $request->shouldReceive( 'get_param' )
+            ->with( 'nonce' )
+            ->andReturn( 'valid-nonce' );
 
         Functions\expect( 'wp_verify_nonce' )
             ->once()
-            ->with( 'good', 'shc_rest' )
+            ->with( 'valid-nonce', 'shc-rest' )
             ->andReturn( true );
 
+        $db = \Mockery::mock( 'SA_HYPERLINK_CRAWLER\Tracking\SHC_Database' );
+        $endpoint = new SHC_RestEndpoint( $db );
+
         $result = $endpoint->permissions_check( $request );
+
         $this->assertTrue( $result );
     }
 

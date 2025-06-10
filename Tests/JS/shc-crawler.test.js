@@ -1,9 +1,13 @@
+const fs = require('fs');
 const path = require('path');
 
-// Load the script after the DOM has been set up in each test.
+// Helper to load script synchronously
 function loadScript() {
-  jest.resetModules();
-  require(path.resolve(__dirname, '../../assets/js/shc-crawler.js'));
+  const scriptPath = path.resolve(__dirname, '../../assets/js/shc-crawler.js');
+  const scriptContent = fs.readFileSync(scriptPath, 'utf8');
+  const script = document.createElement('script');
+  script.textContent = scriptContent;
+  document.body.appendChild(script);
 }
 
 describe('shc-crawler script', () => {
@@ -13,7 +17,14 @@ describe('shc-crawler script', () => {
     window.shcData = { endpoint: '/track', nonce: 'abc', debug: false };
     window.innerHeight = 800;
     window.innerWidth = 600;
-    navigator.sendBeacon = jest.fn().mockReturnValue(true);
+    global.jQuery = { ajax: jest.fn() };
+  });
+
+  afterEach(() => {
+    // Clean up
+    document.body.innerHTML = '';
+    delete window.shcData;
+    delete window.shcCrawlerTest;
   });
 
   test('collectLinks returns only visible links', () => {
@@ -35,20 +46,23 @@ describe('shc-crawler script', () => {
     expect(links[1]).toMatchObject({ text: 'Visible', position: 200 });
   });
 
-  test('sendData uses sendBeacon with payload', () => {
+  test('sendData uses jQuery.ajax with payload', () => {
     loadScript();
     const { sendData } = window.shcCrawlerTest;
 
     const data = { links: [{ url: 'u', text: 't', position: 1 }] };
     sendData('/track', data);
 
-    expect(navigator.sendBeacon).toHaveBeenCalledTimes(1);
-    const [url, payload] = navigator.sendBeacon.mock.calls[0];
-    expect(url).toBe('/track');
-    const parsed = JSON.parse(payload);
+    expect(jQuery.ajax).toHaveBeenCalledTimes(1);
+    const options = jQuery.ajax.mock.calls[0][0];
+    expect(options.url).toBe('/track');
+    expect(options.type).toBe('POST');
+    expect(options.contentType).toBe('application/json');
+    const parsed = JSON.parse(options.data);
     expect(parsed.links).toEqual(data.links);
     expect(parsed.width).toBe(600);
     expect(parsed.height).toBe(800);
+    expect(parsed.nonce).toBe('abc');
     expect(parsed.timestamp).toBeDefined();
   });
 
@@ -59,6 +73,6 @@ describe('shc-crawler script', () => {
 
     document.dispatchEvent(new Event('DOMContentLoaded'));
 
-    expect(navigator.sendBeacon).toHaveBeenCalled();
+    expect(jQuery.ajax).toHaveBeenCalled();
   });
 });

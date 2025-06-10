@@ -43,31 +43,35 @@
             return;
         }
 
-        const payload = JSON.stringify({
+        const payload = {
             links: data.links,
             width: window.innerWidth,
             height: window.innerHeight,
-            timestamp: new Date().toISOString()
-        });
+            timestamp: new Date().toISOString(),
+			nonce: nonce
+        };
 
         try {
-            if (navigator.sendBeacon) {
-                const success = navigator.sendBeacon(endpoint, payload);
-                if (!success && debug) {
-                    console.error('Hyperlink crawler: Beacon failed to send');
+            jQuery.ajax({
+                url: endpoint,
+                type: 'POST',
+                data: JSON.stringify(payload),
+                contentType: 'application/json',
+                success: function(response) {
+                    if (debug) {
+                        console.log('Hyperlink crawler: Success response:', response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    if (debug) {
+                        console.error('Hyperlink crawler: AJAX error:', {
+                            status: status,
+                            error: error,
+                            response: xhr.responseText
+                        });
+                    }
                 }
-            } else {
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', endpoint, true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.setRequestHeader('X-WP-Nonce', nonce);
-
-                xhr.onerror = function() {
-                    if (debug) console.error('Hyperlink crawler: XHR request failed');
-                };
-
-                xhr.send(payload);
-            }
+            });
         } catch (e) {
             if (debug) console.error('Hyperlink crawler error:', e);
         }
