@@ -52,9 +52,9 @@ class SHC_Cron {
 	 * @return void
 	 */
 	public function schedule() {
-			if ( ! wp_next_scheduled( self::HOOK ) ) {
-					wp_schedule_event( time(), 'daily', self::HOOK );
-			}
+		if ( ! wp_next_scheduled( self::HOOK ) ) {
+				wp_schedule_event( time(), 'daily', self::HOOK );
+		}
 	}
 
 	/**
@@ -64,9 +64,9 @@ class SHC_Cron {
 	 */
 	public function unschedule() {
 			$timestamp = wp_next_scheduled( self::HOOK );
-			if ( $timestamp ) {
-					wp_unschedule_event( $timestamp, self::HOOK );
-			}
+		if ( $timestamp ) {
+				wp_unschedule_event( $timestamp, self::HOOK );
+		}
 	}
 
 	/**
