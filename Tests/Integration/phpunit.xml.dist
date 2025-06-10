@@ -12,7 +12,9 @@
 		 convertNoticesToExceptions="true"
 		 convertWarningsToExceptions="true"
 		 verbose="true">
-
+	<php>
+		<ini name="error_reporting" value="E_ALL &amp; ~E_DEPRECATED"/>
+	</php>
 	<testsuites>
 		<testsuite name="integration">
 			<directory suffix=".php">../Integration/</directory>

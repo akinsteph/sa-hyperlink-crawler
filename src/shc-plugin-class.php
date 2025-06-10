@@ -63,7 +63,7 @@ class SHC_Plugin_Class {
 	public function __construct() {
 		$this->db         = new SHC_Database();
 		$this->script     = new SHC_Crawler();
-		$this->endpoint   = new SHC_RestEndpoint();
+		$this->endpoint   = new SHC_RestEndpoint( $this->db );
 		$this->admin_page = new SHC_AdminPage();
 		$this->cron       = new SHC_Cron();
 
@@ -80,7 +80,10 @@ class SHC_Plugin_Class {
 	 * @return void
 	 */
 	protected function register_hooks() {
-		// TODO: register script, REST endpoint, admin page and cron hooks.
+		$this->script->register();
+		$this->endpoint->register();
+
+		// TODO: register admin page and cron hooks.
 	}
 
 	/**
