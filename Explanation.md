@@ -17,16 +17,16 @@ So the goal is to create a plugin that:
 
 ## How this is to be achieved technically
 This plugin achieves the goals above by:
-1. Create Javascript trackiing script to collect visible links and screensize as dat on the homepage
+1. Create javascript trackiing script to collect visible links and screensize as dat on the homepage
 2. Create a REST API endpoint leveraging WordPress inbuilt Rest API to collect the data from the javascript track script
 3. Create a custom table in the wordpress installations database to store the collected data
 4. Create an Admin Page where the site owner can see the stored data
 5. Create scheduled task to delete stored data older than 7 days
 Since we are done with all the creating, then:
-6. Add the javascript tracking script to the homepage using the wordpress inbuilt wp_enqueue hook
-7. Add the callback for the REST API that receives, processes and send the data to the database to be stored
-8. Add method to fetch the data from the database and show it to the site owner on the admin page
-9. Add the method for the cron that handles deleting the data older than 7 days
+6. We add the javascript tracking script to the homepage using the wordpress inbuilt wp_enqueue hook
+7. We add the callback for the REST API that receives, processes and send the data to the database to be stored
+8. We add method to fetch the data from the database and show it to the site owner on the admin page
+9. We add the method for the cron that handles deleting the data older than 7 days
 
 This entire process needs 4 major components, which are:
 ### JavaScript Tracker Script
@@ -49,20 +49,7 @@ This entire process needs 4 major components, which are:
 ### Cleanup Mechanism
 - WP cron to delete records older than 7 days.
 
-## Why WordPress
-- The platform already powers many sites so testing is easy.
-- REST routes, cron jobs and admin pages come built in.
-- You can manage settings and data without leaving the dashboard.
-- The plugin approach lets you install or remove features without touching core files.
-
 ## Technical Decisions Made and Reasons
-- Each feature sits in its own class so you can extend or replace parts later.
-- Namespaces keep everything scoped and avoid clashes.
-- Visits live in a dedicated table for quick queries.
-- Nonces protect the REST route from bad requests.
-- The tracking script gets its endpoint and nonce via `wp_localize_script`.
-- A daily cron clears data older than seven days.
-- Unit and end-to-end tests cover key paths.
 
 ## How this plugin achieves desired outcome per user story
 - The script runs on the homepage and finds links that appear without scrolling.
