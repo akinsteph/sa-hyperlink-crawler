@@ -99,7 +99,9 @@ class SHC_Plugin_Class {
 		$plugin = isset( $_REQUEST['plugin'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['plugin'] ) ) : '';
 		check_admin_referer( "activate-plugin_{$plugin}" );
 
-		// TODO: create database table and schedule cron event.
+		$db = new SHC_Database();
+		$db->activate();
+		// TODO: schedule cron event.
 	}
 
 	/**
@@ -129,5 +131,8 @@ class SHC_Plugin_Class {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
+
+		$db = new SHC_Database();
+		$db->uninstall();
 	}
 }

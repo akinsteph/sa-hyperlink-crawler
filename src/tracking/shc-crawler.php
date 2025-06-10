@@ -43,7 +43,13 @@ class SHC_Crawler {
 
 		$src = plugin_dir_url( SA_HYPERLINK_CRAWLER_PLUGIN_FILENAME ) . 'assets/js/shc-crawler.js';
 
-		wp_enqueue_script( self::HANDLE, $src, array(), SA_HYPERLINK_CRAWLER_VERSION, true );
+		wp_enqueue_script(
+			self::HANDLE,
+			$src,
+			array( 'jquery' ),
+			SA_HYPERLINK_CRAWLER_VERSION,
+			true
+		);
 
 		wp_localize_script( self::HANDLE, 'shcData', $this->get_script_data() );
 	}
@@ -56,7 +62,7 @@ class SHC_Crawler {
 	public function get_script_data() {
 		return array(
 			'endpoint' => rest_url( 'sa-hyperlink-crawler/v1/visit' ),
-			'nonce'    => wp_create_nonce( 'shc_rest' ),
+			'nonce'    => wp_create_nonce( 'shc-rest' ),
 			'debug'    => defined( 'WP_DEBUG' ) && WP_DEBUG,
 		);
 	}
