@@ -8,7 +8,7 @@
  * @license     GPL-2.0-or-later
  */
 
-namespace SA_HYPERLINK_CRAWLER;
+namespace SA_HYPERLINK_CRAWLER\Support;
 
 // Automatically added when writing the WHOOPS section below to find the whoops functions.
 use Whoops\Handler\PrettyPageHandler;
