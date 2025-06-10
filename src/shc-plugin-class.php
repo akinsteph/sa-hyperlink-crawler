@@ -11,7 +11,7 @@
 namespace SA_HYPERLINK_CRAWLER;
 
 use SA_HYPERLINK_CRAWLER\Tracking\SHC_Database;
-use SA_HYPERLINK_CRAWLER\Tracking\SHC_Script;
+use SA_HYPERLINK_CRAWLER\Tracking\SHC_Crawler;
 use SA_HYPERLINK_CRAWLER\Tracking\SHC_RestEndpoint;
 use SA_HYPERLINK_CRAWLER\Tracking\SHC_AdminPage;
 use SA_HYPERLINK_CRAWLER\Tracking\SHC_Cron;
@@ -30,7 +30,7 @@ class SHC_Plugin_Class {
     /**
      * Script handler instance.
      *
-     * @var SHC_Script
+     * @var SHC_Crawler
      */
     protected $script;
 
@@ -62,7 +62,7 @@ class SHC_Plugin_Class {
 	 */
 	public function __construct() {
 		$this->db         = new SHC_Database();
-        $this->script     = new SHC_Script();
+        $this->script     = new SHC_Crawler();
         $this->endpoint   = new SHC_RestEndpoint();
         $this->admin_page = new SHC_AdminPage();
         $this->cron       = new SHC_Cron();
