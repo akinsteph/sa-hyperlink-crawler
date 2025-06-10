@@ -63,13 +63,13 @@ class SHC_AdminPage {
 	 */
 	public function add_menu() {
 		add_menu_page(
-				__( 'Hyperlink Visits', 'sa_hyperlink_crawler' ),
-				__( 'Hyperlink Crawler', 'sa_hyperlink_crawler' ),
-				'manage_options',
-				'sa-hyperlink-crawler',
-				array( $this, 'render' ),
-				'dashicons-admin-links',
-				26
+			__( 'Hyperlink Visits', 'sa_hyperlink_crawler' ),
+			__( 'Hyperlink Crawler', 'sa_hyperlink_crawler' ),
+			'manage_options',
+			'sa-hyperlink-crawler',
+			array( $this, 'render' ),
+			'dashicons-admin-links',
+			26
 		);
 	}
 
@@ -83,9 +83,9 @@ class SHC_AdminPage {
 				return;
 		}
 
-	   $paged     = isset( $_GET['paged'] ) ? max( 1, intval( $_GET['paged'] ) ) : 1; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display page
-	   $per_page = SHC_Database::PER_PAGE;
-	   $visits    = $this->db->get_visits( $paged, $per_page );
+		$paged    = isset( $_GET['paged'] ) ? max( 1, intval( $_GET['paged'] ) ) : 1; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display page
+		$per_page = SHC_Database::PER_PAGE;
+		$visits   = $this->db->get_visits( $paged, $per_page );
 
 		echo '<div class="wrap">';
 		echo '<h1 class="shc-page-title">' . esc_html__( 'Recent Hyperlink Visits', 'sa_hyperlink_crawler' ) . '</h1>';
@@ -100,25 +100,25 @@ class SHC_AdminPage {
 		if ( empty( $visits ) ) {
 				echo '<tr><td colspan="3">' . esc_html__( 'No visits recorded.', 'sa_hyperlink_crawler' ) . '</td></tr>';
 		} else {
-				foreach ( $visits as $visit ) {
-						echo '<tr>';
-						echo '<td>' . esc_html( $visit['visit_time'] ) . '</td>';
-						echo '<td>' . intval( $visit['screen_width'] ) . 'x' . intval( $visit['screen_height'] ) . '</td>';
-						echo '<td>';
-						foreach ( $visit['links'] as $link ) {
-								$url  = esc_url( $link['url'] );
-								$text = esc_html( $link['text'] );
-								echo '<div><a href="' . $url . '" target="_blank">' . $text . '</a></div>';
-						}
-						echo '</td>';
-						echo '</tr>';
+			foreach ( $visits as $visit ) {
+					echo '<tr>';
+					echo '<td>' . esc_html( $visit['visit_time'] ) . '</td>';
+					echo '<td>' . intval( $visit['screen_width'] ) . 'x' . intval( $visit['screen_height'] ) . '</td>';
+					echo '<td>';
+				foreach ( $visit['links'] as $link ) {
+						$url  = esc_url( $link['url'] );
+						$text = esc_html( $link['text'] );
+						echo '<div><a href="' . esc_attr( $url ) . '" target="_blank">' . esc_html( $text ) . '</a></div>';
 				}
+					echo '</td>';
+					echo '</tr>';
+			}
 		}
 		echo '</tbody></table>';
 
-	   // Pagination.
-	   $per_page    = SHC_Database::PER_PAGE;
-	   $total       = $this->db->count_visits();
+		// Pagination.
+		$per_page    = SHC_Database::PER_PAGE;
+		$total       = $this->db->count_visits();
 		$total_pages = (int) ceil( $total / $per_page );
 
 		$prev = $paged > 1 ? $paged - 1 : 0;
@@ -130,9 +130,9 @@ class SHC_AdminPage {
 		if ( $next ) {
 				echo '<a href="' . esc_url( add_query_arg( 'paged', $next ) ) . '">' . esc_html__( 'Next', 'sa_hyperlink_crawler' ) . '</a>';
 		}
-	   echo '</div>'; // end pagination
+		echo '</div>'; // End pagination.
 
-	   echo '</div>'; // end admin container
-	   echo '</div>'; // end wrap
+		echo '</div>'; // End admin container.
+		echo '</div>'; // End wrap.
 	}
 }
