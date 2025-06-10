@@ -10,9 +10,9 @@
 
 namespace SA_HYPERLINK_CRAWLER\Tracking;
 
-use WP_REST_Request;
-use WP_REST_Response;
-use WP_Error;
+use \WP_REST_Request;
+use \WP_REST_Response;
+use \WP_Error;
 
 /**
  * Register REST endpoint for recording visits.
@@ -71,7 +71,7 @@ class SHC_RestEndpoint {
 		$nonce = $request->get_header( 'X-WP-Nonce' );
 
 		if ( ! wp_verify_nonce( $nonce, 'shc_rest' ) ) {
-				return new WP_Error( 'rest_forbidden', __( 'Invalid nonce', SHC_DOMAIN ), array( 'status' => 403 ) );
+				return new \WP_Error( 'rest_forbidden', __( 'Invalid nonce', 'sa_hyperlink_crawler' ), array( 'status' => 403 ) );
 		}
 
 		return true;
@@ -92,12 +92,12 @@ class SHC_RestEndpoint {
 		);
 
 		if ( empty( $data['links'] ) || ! is_array( $data['links'] ) ) {
-			return new WP_REST_Response( array( 'error' => 'Invalid data' ), 400 );
+			return new \WP_REST_Response( array( 'error' => 'Invalid data' ), 400 );
 		}
 
 		// Persist the visit using database handler.
 		$this->db->insert_visit( $data );
 
-		return new WP_REST_Response( array( 'success' => true ), 201 );
+		return new \WP_REST_Response( array( 'success' => true ), 201 );
 	}
 }
