@@ -54,23 +54,23 @@ class SHC_RestEndpoint {
 			'sa-hyperlink-crawler/v1',
 			'/visit',
 			array(
-				'methods'  => 'POST',
-				'callback' => array( $this, 'handle_visit' ),
-				'args'     => array(
-					'links' => array(
-						'type' => 'array',
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'handle_visit' ),
+				'args'                => array(
+					'links'  => array(
+						'type'     => 'array',
 						'required' => true,
 					),
-					'width' => array(
-						'type' => 'integer',
+					'width'  => array(
+						'type'     => 'integer',
 						'required' => true,
 					),
 					'height' => array(
-						'type' => 'integer',
+						'type'     => 'integer',
 						'required' => true,
 					),
-					'nonce' => array(
-						'type' => 'string',
+					'nonce'  => array(
+						'type'     => 'string',
 						'required' => true,
 					),
 				),
@@ -88,7 +88,7 @@ class SHC_RestEndpoint {
 	public function permissions_check( WP_REST_Request $request ) {
 		$nonce = $request->get_param( 'nonce' );
 		if ( ! isset( $nonce ) || ! wp_verify_nonce( $nonce, 'shc-rest' ) ) {
-			return new WP_Error( 'rest_forbidden', __( 'Invalid nonce', SHC_DOMAIN ), array( 'status' => 403 ) );
+			return new WP_Error( 'rest_forbidden', __( 'Invalid nonce', 'sa_hyperlink_crawler' ), array( 'status' => 403 ) );
 		}
 
 		return true;

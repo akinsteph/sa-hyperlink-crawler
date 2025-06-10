@@ -59,21 +59,40 @@ class SHC_Crawler_Test extends TestCase {
     }
 
     public function test_enqueue_adds_script_and_localizes_data() {
-        $crawler = new SHC_Crawler();
-
         Functions\when( 'is_front_page' )->justReturn( true );
         Functions\when( 'plugin_dir_url' )->justReturn( 'http://example.com/' );
-        Functions\when( 'rest_url' )->justReturn( '/api' );
-        Functions\when( 'wp_create_nonce' )->justReturn( '123' );
+        Functions\when( 'rest_url' )->justReturn( 'http://example.com/wp-json/sa-hyperlink-crawler/v1/visit' );
+        Functions\when( 'wp_create_nonce' )->justReturn( 'test-nonce' );
 
+        // Mock WP_DEBUG constant
+        if (!defined('WP_DEBUG')) {
+            define('WP_DEBUG', false);
+        }
+
+        // Set up expectations before calling the method
         Functions\expect( 'wp_enqueue_script' )
             ->once()
-            ->with( SHC_Crawler::HANDLE, 'http://example.com/assets/js/shc-crawler.js', array(), '1.0.0', true );
+            ->with(
+                'shc-script',
+                'http://example.com/assets/js/shc-crawler.js',
+                array( 'jquery' ),
+                '1.0.0',
+                true
+            );
 
         Functions\expect( 'wp_localize_script' )
             ->once()
-            ->with( SHC_Crawler::HANDLE, 'shcData', array( 'endpoint' => '/api', 'nonce' => '123', 'debug' => false ) );
+            ->with(
+                'shc-script',
+                'shcData',
+                array(
+                    'endpoint' => 'http://example.com/wp-json/sa-hyperlink-crawler/v1/visit',
+                    'nonce' => 'test-nonce',
+                    'debug' => false
+                )
+            );
 
+        $crawler = new SHC_Crawler();
         $crawler->enqueue();
     }
 
