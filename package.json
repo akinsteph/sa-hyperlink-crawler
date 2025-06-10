@@ -1,0 +1,18 @@
+{
+	"name": "sa-hyperlink-crawler",
+	"version": "1.0.0",
+	"description": "JS tests for SA Hyperlink Crawler",
+	"devDependencies": {
+	  "jest": "^29.7.0",
+	  "jest-environment-jsdom": "^30.0.0"
+	},
+	"scripts": {
+	  "test": "jest"
+	},
+	"jest": {
+	  "testEnvironment": "jsdom",
+	  "testMatch": [
+		"<rootDir>/Tests/JS/**/*.test.js"
+	  ]
+	}
+}
