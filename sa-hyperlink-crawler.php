@@ -31,7 +31,7 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 
 require_once __DIR__ . '/src/support/exceptions.php';
 
-// Load tracking classes
+// Load tracking classes.
 require_once __DIR__ . '/src/tracking/shc-database.php';
 require_once __DIR__ . '/src/tracking/shc-crawler.php';
 require_once __DIR__ . '/src/tracking/shc-restendpoint.php';
@@ -41,13 +41,14 @@ require_once __DIR__ . '/src/tracking/shc-cron.php';
 // Load the plugin class.
 require_once __DIR__ . '/src/shc-plugin-class.php';
 
-// Plugin initialization.
+
 /**
  * Creates the plugin object on plugins_loaded hook
  *
  * @return void
  */
 function sa_hyperlink_crawler_plugin_init() {
+	// Plugin initialization.
 	$shc_plugin = new SHC_Plugin_Class();
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\sa_hyperlink_crawler_plugin_init' );
