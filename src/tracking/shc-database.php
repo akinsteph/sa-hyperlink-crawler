@@ -143,4 +143,18 @@ class SHC_Database {
 		);
 		$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- query is prepared above and table name is static
 	}
+
+	/**
+	 * Count total visits stored.
+	 *
+	 * @return int
+	 */
+	public function count_visits() {
+		global $wpdb;
+
+		$table = $this->get_table();
+		$sql   = $wpdb->prepare( 'SELECT COUNT(*) FROM %i', $table );
+
+		return (int) $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- table name is static
+	}
 }
