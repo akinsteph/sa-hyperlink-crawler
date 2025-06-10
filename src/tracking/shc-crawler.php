@@ -56,7 +56,7 @@ class SHC_Crawler {
 	public function get_script_data() {
 		return array(
 			'endpoint' => rest_url( 'sa-hyperlink-crawler/v1/visit' ),
-			'nonce'    => wp_create_nonce( 'wp_rest' ),
+			'nonce'    => wp_create_nonce( 'shc_rest' ),
 			'debug'    => defined( 'WP_DEBUG' ) && WP_DEBUG,
 		);
 

@@ -25,6 +25,9 @@ if ( is_readable( WPMEDIA_PHPUNIT_ROOT_TEST_DIR . '/bootstrap.php' ) ) {
 	require_once WPMEDIA_PHPUNIT_ROOT_TEST_DIR . '/bootstrap.php';
 }
 
+// Load WordPress core class mocks
+require_once __DIR__ . '/mocks.php';
+
 // Load plugin classes
 require_once dirname(dirname(__DIR__)) . '/src/tracking/shc-crawler.php';
 require_once dirname(dirname(__DIR__)) . '/src/tracking/shc-database.php';
