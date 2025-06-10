@@ -142,6 +142,24 @@ The plugin follows a modular architecture with clear separation of concerns:
 - Performance testing for data handling
 - Security testing for vulnerabilities
 
+### CI/CD Workflows
+The plugin uses GitHub Actions for automated testing and deployment:
+
+1. **Code Quality**
+   - PHPCS and PHPStan for PHP
+   - ESLint for JavaScript
+   - Runs on every push/PR
+
+2. **Testing**
+   - PHPUnit and Jest tests
+   - WordPress integration tests
+   - Runs on PRs and main branch
+
+3. **Deployment**
+   - Version management
+   - WordPress repository deployment
+   - Runs on main branch merge
+
 ### Future Enhancements
 - Advanced analytics and reporting, considering how much data the plugin might be storing been able seeing how this data can be utilised for analytics looks so interesting to me, might end up been a premium feature
 - Usually users and corporates always have GDPR concerns would be nice to be able to tell the user that a certain type of data is been collected stored and delete within 7 days ( notice how i didn;t save any of the user data as well)
