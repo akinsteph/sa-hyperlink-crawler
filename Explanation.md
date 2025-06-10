@@ -52,3 +52,108 @@ This entire process needs 4 major components, which are:
 ## Technical Decisions Made and Reasons
 
 ## How this plugin achieves desired outcome per user story
+- The script runs on the homepage and finds links that appear without scrolling.
+- It sends those links and the viewport size to the REST endpoint.
+- The endpoint stores the visit with a timestamp.
+- The admin page shows each visit with screen size and links seen.
+- Cleanup keeps the list to the last seven days so reports stay relevant.
+- You can review this data and adjust your layout based on what visitors saw.
+
+## My approach and why
+- Break the work into tracking, storing, viewing and cleanup.
+- Use namespaced classes so you can add features without clashes.
+- Build the JavaScript tracker first to capture real data early.
+- Store visits in a custom table for faster lookups.
+- Provide basic tests even if some fail in this environment.
+- Focus on simple code that follows WordPress conventions.
+
+## Detailed Technical Implementation
+
+### Architecture Overview
+The plugin follows a modular architecture with clear separation of concerns:
+
+1. **Core Plugin Class (`SHC_Plugin_Class`)**
+   - Manages plugin lifecycle (activation, deactivation, uninstall)
+   - Coordinates between different components
+   - Handles dependency injection and initialization
+
+2. **Database Layer (`SHC_Database`)**
+   - Custom table creation and management
+   - CRUD operations for visit data
+   - Data sanitization and validation
+   - Implements WordPress database best practices
+
+3. **Frontend Tracking (`SHC_Crawler`)**
+   - JavaScript implementation using modern ES6+ features
+   - Intersection Observer API for viewport detection
+   - Efficient DOM traversal for link detection
+   - Error handling and fallback mechanisms
+
+4. **API Layer (`SHC_RestEndpoint`)**
+   - RESTful endpoint implementation
+   - Request validation and sanitization
+   - Rate limiting and security measures
+   - Proper error responses and status codes
+
+5. **Admin Interface (`SHC_AdminPage`)**
+   - WordPress admin page integration
+   - Data visualization and filtering
+   - Export capabilities
+   - User-friendly interface design
+
+6. **Maintenance (`SHC_Cron`)**
+   - Scheduled cleanup tasks
+   - Database optimization
+   - Logging and monitoring
+
+### Security Considerations
+- Input validation at all entry points
+- Nonce verification for all requests
+- Capability checks for admin functions
+- Data sanitization before storage
+- XSS prevention in output
+- CSRF protection
+- Rate limiting for API endpoints
+
+### Performance Optimizations
+- Efficient database queries with proper indexing
+- Minimal JavaScript footprint
+- Asynchronous data collection
+- Caching where appropriate
+- Batch processing for cleanup tasks
+
+### Testing Strategy
+- Unit tests for core functionality
+- Integration tests for component interaction
+- End-to-end tests for critical paths
+- Performance testing for data handling
+- Security testing for vulnerabilities
+
+### CI/CD Workflows
+The plugin uses GitHub Actions for automated testing and deployment:
+
+1. **Code Quality**
+   - PHPCS and PHPStan for PHP
+   - ESLint for JavaScript
+   - Runs on every push/PR
+
+2. **Testing**
+   - PHPUnit and Jest tests
+   - WordPress integration tests
+   - Runs on PRs and main branch
+
+3. **Deployment**
+   - Version management
+   - WordPress repository deployment
+   - Runs on main branch merge
+
+### Future Enhancements
+- Advanced analytics and reporting, considering how much data the plugin might be storing been able seeing how this data can be utilised for analytics looks so interesting to me, might end up been a premium feature
+- Usually users and corporates always have GDPR concerns would be nice to be able to tell the user that a certain type of data is been collected stored and delete within 7 days ( notice how i didn;t save any of the user data as well)
+- Custom dashboard widgets 
+- Export/import functionality, the site owner will definitely think of exporting the data out of the platform for analytics and processing as well would be a good feature to have
+- API rate limiting configuration this is mainly for performance especially for sites with medium to high traffic.
+- Custom retention periods this will be a great premium feature this might have to be a user(site visitor) or site owner centered feature.
+- Real-time monitoring
+
+This implementation provides a solid foundation that can be extended while maintaining performance, security, and maintainability.
