@@ -69,6 +69,20 @@ class DatabaseIntegrationTest extends TestCase {
         PHPUnitTestCase::assertTrue($result, 'Cleanup should return true on success');
     }
 
+	public function test_count_visits_fetches_total() {
+        global $wpdb;
+
+        $wpdb->shouldReceive('get_var')
+            ->once()
+            ->with("SELECT COUNT(*) FROM wp_" . SHC_Database::TABLE)
+            ->andReturn(5);
+
+        $db    = new SHC_Database();
+        $count = $db->count_visits();
+
+        PHPUnitTestCase::assertEquals(5, $count);
+    }
+
     public static function tearDownAfterClass(): void {
         global $wpdb;
         if (isset($wpdb) && $wpdb instanceof \Mockery\MockInterface) {

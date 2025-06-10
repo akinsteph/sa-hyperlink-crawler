@@ -106,4 +106,15 @@ class SHC_Database_Test extends TestCase {
 
         $db->cleanup();
     }
+
+    public function test_count_visits_executes_query_and_returns_int() {
+        $db = new SHC_Database();
+
+        $this->wpdb->shouldReceive('get_var')
+            ->once()
+            ->with("SELECT COUNT(*) FROM wp_" . SHC_Database::TABLE)
+            ->andReturn(7);
+
+        $this->assertSame(7, $db->count_visits());
+    }
 }

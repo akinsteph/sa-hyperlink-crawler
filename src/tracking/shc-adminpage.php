@@ -83,11 +83,13 @@ class SHC_AdminPage {
 				return;
 		}
 
-		$paged  = isset( $_GET['paged'] ) ? max( 1, intval( $_GET['paged'] ) ) : 1; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display page
-		$visits = $this->db->get_visits( $paged );
+	   $paged     = isset( $_GET['paged'] ) ? max( 1, intval( $_GET['paged'] ) ) : 1; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display page
+	   $per_page = SHC_Database::PER_PAGE;
+	   $visits    = $this->db->get_visits( $paged, $per_page );
 
-		echo '<div class="wrap shc-admin-container">';
-		echo '<h1>' . esc_html__( 'Recent Hyperlink Visits', 'sa_hyperlink_crawler' ) . '</h1>';
+		echo '<div class="wrap">';
+		echo '<h1 class="shc-page-title">' . esc_html__( 'Recent Hyperlink Visits', 'sa_hyperlink_crawler' ) . '</h1>';
+		echo '<div class="shc-admin-container">';
 		echo '<table class="widefat shc-admin-table">';
 		echo '<thead><tr>';
 		echo '<th>' . esc_html__( 'Time', 'sa_hyperlink_crawler' ) . '</th>';
@@ -114,9 +116,9 @@ class SHC_AdminPage {
 		}
 		echo '</tbody></table>';
 
-		// Pagination.
-		$per_page    = 20;
-		$total       = $this->db->count_visits();
+	   // Pagination.
+	   $per_page    = SHC_Database::PER_PAGE;
+	   $total       = $this->db->count_visits();
 		$total_pages = (int) ceil( $total / $per_page );
 
 		$prev = $paged > 1 ? $paged - 1 : 0;
@@ -128,8 +130,9 @@ class SHC_AdminPage {
 		if ( $next ) {
 				echo '<a href="' . esc_url( add_query_arg( 'paged', $next ) ) . '">' . esc_html__( 'Next', 'sa_hyperlink_crawler' ) . '</a>';
 		}
-		echo '</div>';
+	   echo '</div>'; // end pagination
 
-		echo '</div>';
+	   echo '</div>'; // end admin container
+	   echo '</div>'; // end wrap
 	}
 }
