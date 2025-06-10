@@ -80,9 +80,7 @@ class SHC_Plugin_Class {
 	 * @return void
 	 */
 	protected function register_hooks() {
-		$this->script->register();
-
-		// TODO: register REST endpoint, admin page and cron hooks.
+		// TODO: register script, REST endpoint, admin page and cron hooks.
 	}
 
 	/**
