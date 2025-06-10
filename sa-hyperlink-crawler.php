@@ -23,6 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) { // If WordPress is not loaded.
 
 define( 'SA_HYPERLINK_CRAWLER_PLUGIN_FILENAME', __FILE__ ); // Filename of the plugin, including the file.
 define( 'SA_HYPERLINK_CRAWLER_VERSION', '1.0.0' ); // Version of the plugin.
+define( 'SHC_DOMAIN', 'sa-hyperlink-crawler' ); // Domain of the plugin.
 
 // Composer autoload.
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
